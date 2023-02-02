@@ -1,7 +1,6 @@
 package eureka_go_sdk
 
 import (
-	"fmt"
 	"io"
 	"io/ioutil"
 	"net/http"
@@ -24,7 +23,6 @@ func handleHttpRequest(reqParam *requestParam) (respBody []byte, status int, err
 	if reqParam.Body != "" {
 		body = strings.NewReader(reqParam.Body)
 	}
-	fmt.Println(reqParam.Body)
 	req, err = http.NewRequest(reqParam.Method, reqParam.URL, body)
 	if err != nil {
 		return

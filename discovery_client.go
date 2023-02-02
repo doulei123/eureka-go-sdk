@@ -39,6 +39,11 @@ func NewDiscoveryClient(conf *EurekaClientConfig) (registered bool, discovery Di
 	//register to eureka service
 	if conf.RegisterWithEureka {
 		registered, err = eurekaClient.Register(&InstanceInfo{wrapperInstance})
+		for err != nil {
+			log.Println("register instance failed, failed to connect eureka and sleep 3 second err :v%", err)
+			time.Sleep(3 * time.Second)
+			registered, err = eurekaClient.Register(&InstanceInfo{wrapperInstance})
+		}
 		go disClient.heartbeatTask()
 	}
 
